@@ -1,0 +1,15 @@
+An open door under a critter is open air.
+
+In the unmodded game a critter standing on a door keeps standing on it when the door opens, and critters walk across open doors as if they were floor; only a critter that is already falling passes through. That is because a door marks its top row of cells as floor for its whole life, open or closed, and critter pathing takes that at face value.
+
+[h2]What changes[/h2]
+[list]
+[*]A critter standing on a door falls through the moment the door is set to open, by hand or by automation.
+[*]Critters no longer path across open doors.
+[*]Closed and locked doors still carry critters, and so does an automatic door that merely opened to let a duplicant through, because critters cannot pass those.
+[*]Duplicants and robots are not affected.
+[/list]
+
+One small patch on the game's floor validator; doors, critters and the sim are not touched.
+
+Source and issues: https://github.com/isochronous/critters-fall-through-doors

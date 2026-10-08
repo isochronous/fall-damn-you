@@ -1,0 +1,35 @@
+# Critters Fall Through Doors
+
+An [Oxygen Not Included](https://www.klei.com/games/oxygen-not-included) mod that makes an open door under a critter count as open air.
+
+## The problem
+
+In the unmodded game a critter standing on a door keeps standing on it when the door opens, and critters walk across open doors as if they were floor. Only a critter that is already falling passes through an open door. The reason is in how doors are built: a door marks its top row of cells as floor for its whole life, open or closed, and every creature's navigation table treats such a cell as ground.
+
+## What the mod does
+
+For critters, a door they could walk through, meaning one that is open to critters and not solid, no longer counts as floor. The navigation table marks the cell above it as not walkable, the critter's own fall check finds no floor there and nothing solid under its feet, and it falls through, exactly as if the tile had been dug out. In practice:
+
+- A critter standing on a door falls through the moment the door is set to open, by hand or by automation.
+- Critters do not path across open doors any more.
+- A closed or locked door still carries critters, and so does an automatic door that merely opened to let a duplicant through, because critters cannot pass those.
+- Duplicants and robots are not affected: their navigation uses a separate flag the mod leaves alone.
+
+The mod is one small patch on the game's floor validator; it does not touch doors, critters or the sim.
+
+## Installing
+
+As a local mod:
+
+1. Download `CrittersFallThroughDoors-<version>.zip` from the [latest release](https://github.com/isochronous/critters-fall-through-doors/releases/latest).
+2. Extract it into a new folder named `CrittersFallThroughDoors` inside the game's local mods folder, so that `mod.yaml` ends up directly inside it (create `local` if it does not exist):
+   - Windows: `Documents\Klei\OxygenNotIncluded\mods\local\CrittersFallThroughDoors`
+   - Linux: `~/.config/unity3d/Klei/Oxygen Not Included/mods/local/CrittersFallThroughDoors`
+3. Enable it in the game's Mods menu and restart.
+
+## Building
+
+```
+git clone --recurse-submodules https://github.com/isochronous/critters-fall-through-doors.git
+dotnet build critters-fall-through-doors/src/CrittersFallThroughDoors -c Release
+```
