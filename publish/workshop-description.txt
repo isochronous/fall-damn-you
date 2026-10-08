@@ -1,13 +1,11 @@
-Critters fall through open doors.
+A critter whose footing a door just took away falls at once, instead of standing there until it realizes it should be falling.
 
 [list]
-[*]A critter standing on a door falls through the moment the door is opened, by hand or by automation.
-[*]Critters no longer walk across open doors.
-[*]Closed and locked doors still carry critters, and so do automatic doors that only opened for a duplicant.
-[*]A critter whose floor a door just took away, by opening under it or by closing on it, starts falling at once instead of standing there until it realizes it should be falling.
+[*]Pez droppers fire the moment the door closes on the critter.
+[*]With Sgt_Imalas's Critters Fall Through Open Doors installed, critters drop the moment a door opens under them (or, for climbers, above them).
 [*]Duplicants and robots are not affected.
 [/list]
 
-Both behaviours are options, on by default. Checked against Fast Track.
+Does nothing unless a door just changed state, so there is no cost the rest of the time. Checked against Fast Track.
 
 Source and issues: https://github.com/isochronous/fall-damn-you

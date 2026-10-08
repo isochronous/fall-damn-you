@@ -2,6 +2,4 @@
 
 ## Unreleased
 
-- First version: an open door under a critter counts as open air. Critters standing on a door fall through when it is opened, and no longer walk across open doors. Closed and locked doors, and automatic doors that only opened for a duplicant, still carry critters. Duplicants and robots are unaffected.
-- A critter whose floor a door just took away, by opening under it or by closing on it, starts falling right away instead of standing there until it figures out it's supposed to.
-- Both features are options, on by default: "Open doors are open air to critters" and "Start falling at once".
+- First version: a critter whose footing a door just took away, by closing on it (a pez dropper) or by opening under it (with a mod that makes open doors open air for critters, such as Sgt_Imalas's Critters Fall Through Open Doors), falls at once instead of standing there until it figures out it's supposed to.

@@ -5,17 +5,19 @@ using UnityEngine;
 namespace FallDamnYou
 {
 	/// <summary>
-	/// Makes the fall start promptly. Whether a critter should fall is a behaviour precondition its
-	/// brain evaluates on the brain scheduler's round-robin, so after a door changes the critter could
-	/// stand on nothing for a moment. Every navigation grid raises an event after it has updated a
-	/// batch of cells; when that batch holds a cell a critter can no longer stand in because of a door,
-	/// the brain of each critter in it is updated right away. The brain then runs its normal chore
-	/// selection, in which the fall check decides as it always does.
+	/// Makes a critter fall the moment a door takes its footing away, instead of standing there until
+	/// it figures out it is supposed to. Whether a critter should fall is a behaviour precondition its
+	/// brain evaluates on the brain scheduler's round-robin, so the game itself can leave it hanging
+	/// for a while, as in a standard pez dropper (a pneumatic door closing on a critter that stands on
+	/// another pneumatic door).
 	///
-	/// Two door changes qualify: the door below the cell opened to critters (the fix in Mod.cs made the
-	/// cell unwalkable), and the cell is itself a door that closed on the critter (the cell became
-	/// impassable; the game then lets the critter fall if what is under it is not solid, which is a
-	/// standard pez dropper).
+	/// Every navigation grid raises an event after it has updated a batch of cells. Within a second of
+	/// a door changing state, the batch is scanned for cells that have a door in or next to them; a
+	/// critter standing in such a cell whose own navigation type is no longer valid there has its brain
+	/// updated right away, which runs the game's normal chore selection and with it the fall check.
+	/// What counts as "floor" is left entirely to the game and to other mods: Sgt_Imalas's Critters
+	/// Fall Through Open Doors makes open doors non-floor (and non-ceiling) for critters, and this
+	/// triggers on the resulting navigation change just as it does on a door closing on a critter.
 	///
 	/// Cost: nothing unless a door changed state within the last second (digging and building dirty
 	/// cells all the time, and those batches are not even looked at). Within that window each dirty
@@ -25,7 +27,6 @@ namespace FallDamnYou
 	/// The event fires on the main thread inside the game's own graph update, with and without Fast
 	/// Track (its path cache keeps that call), and updating a critter brain directly from the main
 	/// thread is what Fast Track itself does for non-duplicant brains it queues.
-	/// Option "Start falling at once".
 	/// </summary>
 	[HarmonyPatch(typeof(Pathfinding), nameof(Pathfinding.AddNavGrid))]
 	public static class FallPoke
@@ -54,31 +55,39 @@ namespace FallDamnYou
 
 		private static void OnGridUpdated(NavGrid grid, List<int> cells)
 		{
-			if (Time.realtimeSinceStartup - lastDoorChange > DoorWindowSeconds || KMonoBehaviour.isLoadingScene || Components.Brains.Count == 0 || !Settings.PromptFall)
+			if (Time.realtimeSinceStartup - lastDoorChange > DoorWindowSeconds || KMonoBehaviour.isLoadingScene || Components.Brains.Count == 0)
 				return;
 			foreach (int cell in cells)
 			{
-				if (!DoorChangedUnderfoot(cell) || grid.NavTable.IsValid(cell, NavType.Floor))
-					continue;
-				if (!CrittersAt(cell, out List<Brain> critters))
+				if (!NearDoor(cell) || !CrittersAt(cell, out List<Brain> critters))
 					continue;
 				foreach (Brain brain in critters)
 				{
 					Navigator navigator = brain.GetComponent<Navigator>();
-					if (navigator != null && navigator.NavGrid == grid && brain.IsRunning())
+					if (navigator == null || navigator.NavGrid != grid || !brain.IsRunning())
+						continue;
+					if (!grid.NavTable.IsValid(cell, navigator.CurrentNavType))
 						brain.UpdateBrain();
 				}
 			}
 		}
 
-		/// <summary>The cell is a door cell that is closed to critters, or sits on a door that is open to them.</summary>
-		private static bool DoorChangedUnderfoot(int cell)
+		/// <summary>A door in the cell or in one of its four neighbours: floor and ceiling anchors, and walls for crawlers.</summary>
+		private static bool NearDoor(int cell)
 		{
 			if (Grid.HasDoor[cell])
-				return Grid.CritterImpassable[cell];
-			int below = Grid.CellBelow(cell);
-			return Grid.IsValidCell(below) && Grid.HasDoor[below] && Grid.FakeFloor[below]
-				&& !Grid.Solid[below] && !Grid.CritterImpassable[below];
+				return true;
+			int other = Grid.CellBelow(cell);
+			if (Grid.IsValidCell(other) && Grid.HasDoor[other])
+				return true;
+			other = Grid.CellAbove(cell);
+			if (Grid.IsValidCell(other) && Grid.HasDoor[other])
+				return true;
+			other = Grid.CellLeft(cell);
+			if (Grid.IsValidCell(other) && Grid.HasDoor[other])
+				return true;
+			other = Grid.CellRight(cell);
+			return Grid.IsValidCell(other) && Grid.HasDoor[other];
 		}
 
 		/// <summary>Critters (brains with a creature fall monitor) by cell, gathered once per frame.</summary>

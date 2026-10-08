@@ -1,3 +1,3 @@
 title: "Fall, Damn You!"
-description: "An open door under a critter is open air: critters standing on a door fall through when it opens, and cannot walk across an open door. Closed and locked doors, and automatic doors that only opened for a duplicant, still carry critters as before. Duplicants and robots are unaffected."
+description: "A critter whose footing a door just took away falls at once, instead of standing there until it figures out it's supposed to. Works on its own for pez droppers, and alongside Sgt_Imalas's Critters Fall Through Open Doors."
 staticID: "Isochronous.FallDamnYou"
