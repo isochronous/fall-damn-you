@@ -8,4 +8,4 @@ A critter whose footing a door just took away falls at once, instead of standing
 
 Does nothing unless a door just changed state, so there is no cost the rest of the time. Checked against Fast Track.
 
-Source and issues: https://github.com/isochronous/fall-damn-you
+Source and issues: https://github.com/isochronous/fall-you-bastard
