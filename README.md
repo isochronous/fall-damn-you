@@ -26,7 +26,7 @@ The mod is one patch on the game's floor validator plus that listener; it does n
 Both features are options, on by default, and a change applies when a game is loaded:
 
 - **Open doors are open air to critters** is the floor change.
-- **Start falling at once** is the listener that has a critter's brain run its fall check right away. With it off, the critter still falls, on the brain schedule's next turn, as in the unmodded two-door drop.
+- **Start falling at once** makes a critter fall the moment a door takes its floor away. With it off, the critter still falls, once it realizes it should be, as in the unmodded two-door drop.
 
 ## Installing
 

@@ -12,7 +12,7 @@ namespace FallDamnYou
 		[JsonProperty]
 		public bool OpenDoorsFall { get; set; } = true;
 
-		[Option("Start falling at once", "No waiting for the brain schedule. Takes effect when a game is loaded.")]
+		[Option("Start falling at once", "No standing there until it realizes it should be falling. Takes effect when a game is loaded.")]
 		[JsonProperty]
 		public bool PromptFall { get; set; } = true;
 	}

@@ -4,7 +4,7 @@ Critters fall through open doors.
 [*]A critter standing on a door falls through the moment the door is opened, by hand or by automation.
 [*]Critters no longer walk across open doors.
 [*]Closed and locked doors still carry critters, and so do automatic doors that only opened for a duplicant.
-[*]A critter whose floor a door just took away, by opening under it or by closing on it, starts falling at once instead of standing there until its brain gets around to it.
+[*]A critter whose floor a door just took away, by opening under it or by closing on it, starts falling at once instead of standing there until it realizes it should be falling.
 [*]Duplicants and robots are not affected.
 [/list]
 
