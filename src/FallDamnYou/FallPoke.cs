@@ -72,7 +72,11 @@ namespace FallDamnYou
 			}
 		}
 
-		/// <summary>A door in the cell or in one of its four neighbours: floor and ceiling anchors, and walls for crawlers.</summary>
+		/// <summary>
+		/// A door in the cell or in one of its four orthogonal neighbours: floor and ceiling anchors, and walls
+		/// for crawlers. The door flag is set on every cell a door occupies, so each of the six cells around a
+		/// two-cell door, horizontal or vertical, sees it; diagonals are never navigation anchors.
+		/// </summary>
 		private static bool NearDoor(int cell)
 		{
 			if (Grid.HasDoor[cell])
