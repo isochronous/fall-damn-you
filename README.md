@@ -4,11 +4,11 @@ An [Oxygen Not Included](https://www.klei.com/games/oxygen-not-included) mod: a 
 
 ## What it does
 
-Whether a critter should fall is something its brain checks when its turn comes up on the game's brain schedule. When a door takes the floor from under a critter, by closing on it in a standard pez dropper, or by opening under it with a mod that makes open doors open air for critters, the critter can stand on nothing for a noticeable moment. This mod watches the navigation update that follows a door change and, for any critter standing in a cell next to a door that its navigation can no longer use, has its brain run its checks right away. The game's own fall check does the rest.
+Whether a critter should fall is something its brain checks when its turn comes up on the game's brain schedule. When a door takes the floor from under a critter, by closing on it in a standard pez dropper, or by opening under it with a mod that makes open doors open air for critters, the critter can stand on nothing for a noticeable moment. This mod watches the navigation update that follows a door finishing its open or close and, for any critter standing in a cell next to a door that its navigation can no longer use, has its brain run its checks right away. The game's own fall check does the rest.
 
 What counts as floor is left to the game and to other mods. [Sgt_Imalas's Critters Fall Through Open Doors](https://github.com/Sgt-Imalas/Sgt_Imalas-Oni-Mods) makes open doors non-floor and non-ceiling for critters; with it installed, this mod makes those falls immediate too. Without it, the mod still speeds up pez droppers.
 
-The listener costs nothing unless a door changed state within the last second, so the constant navigation updates from digging and building are never inspected. Duplicants and robots are not touched. Checked against Fast Track, which keeps the hooks intact.
+The listener costs nothing unless a door finished a state change within the last second, so the constant navigation updates from digging and building are never inspected. Duplicants and robots are not touched. Checked against Fast Track, which keeps the hooks intact.
 
 ## Installing
 

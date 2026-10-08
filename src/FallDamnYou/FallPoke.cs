@@ -12,14 +12,14 @@ namespace FallDamnYou
 	/// another pneumatic door).
 	///
 	/// Every navigation grid raises an event after it has updated a batch of cells. Within a second of
-	/// a door changing state, the batch is scanned for cells that have a door in or next to them; a
+	/// a door finishing a state change, the batch is scanned for cells that have a door in or next to them; a
 	/// critter standing in such a cell whose own navigation type is no longer valid there has its brain
 	/// updated right away, which runs the game's normal chore selection and with it the fall check.
 	/// What counts as "floor" is left entirely to the game and to other mods: Sgt_Imalas's Critters
 	/// Fall Through Open Doors makes open doors non-floor (and non-ceiling) for critters, and this
 	/// triggers on the resulting navigation change just as it does on a door closing on a critter.
 	///
-	/// Cost: nothing unless a door changed state within the last second (digging and building dirty
+	/// Cost: nothing unless a door finished a state change within the last second (digging and building dirty
 	/// cells all the time, and those batches are not even looked at). Within that window each dirty
 	/// cell costs a few array reads, and the critter positions are gathered once per frame and shared
 	/// by all grids, since every grid receives the same dirty cells.
@@ -43,13 +43,19 @@ namespace FallDamnYou
 			nav_grid.OnNavGridUpdateComplete += cells => OnGridUpdated(nav_grid, cells);
 		}
 
-		/// <summary>A door changed its passable state: open the inspection window.</summary>
-		[HarmonyPatch(typeof(Door), "SetPassableState")]
-		public static class Door_SetPassableState_Patch
+		/// <summary>
+		/// A door finished changing state: open the inspection window. The door updates its world state
+		/// twice: at the start, when its control setting changes (updateSim false), and when its state
+		/// machine enters open, closed or locked after the animation (updateSim true). Only the second
+		/// counts, so a critter is not dropped while the door is still visibly moving.
+		/// </summary>
+		[HarmonyPatch(typeof(Door), "SetWorldState")]
+		public static class Door_SetWorldState_Patch
 		{
-			public static void Postfix()
+			public static void Postfix(bool updateSim)
 			{
-				lastDoorChange = Time.realtimeSinceStartup;
+				if (updateSim)
+					lastDoorChange = Time.realtimeSinceStartup;
 			}
 		}
 
