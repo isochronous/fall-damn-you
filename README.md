@@ -17,7 +17,7 @@ For critters, a door they could walk through, meaning one that is open to critte
 
 ## No waiting
 
-Whether a critter should fall is something its brain checks on the game's brain schedule, so even in the unmodded game a critter can stand on nothing for a moment, for example when a pneumatic door closes on it while it stands on another pneumatic door, the two-door drop players build on purpose. The mod listens for the navigation update that follows a door change and, when a critter is standing in a cell a door just took the floor from, either by opening under it or by closing on it, has that critter's brain run its check right away. The brain decides as it always does; the mod only stops it waiting its turn. The listener costs nothing unless a door changed state within the last second, so the constant navigation updates from digging and building are never inspected.
+Whether a critter should fall is something its brain checks on the game's brain schedule, so even in the unmodded game a critter can stand on nothing for a moment, for example in a standard pez dropper, where a pneumatic door closes on a critter standing on another pneumatic door. The mod listens for the navigation update that follows a door change and, when a critter is standing in a cell a door just took the floor from, either by opening under it or by closing on it, has that critter's brain run its check right away. The brain decides as it always does; the mod only stops it waiting its turn. The listener costs nothing unless a door changed state within the last second, so the constant navigation updates from digging and building are never inspected.
 
 The mod is one patch on the game's floor validator plus that listener; it does not touch doors, critters or the sim. It has been checked against Fast Track, which keeps both hooks intact.
 
@@ -26,7 +26,7 @@ The mod is one patch on the game's floor validator plus that listener; it does n
 Both features are options, on by default, and a change applies when a game is loaded:
 
 - **Open doors are open air to critters** is the floor change.
-- **Start falling at once** makes a critter fall the moment a door takes its floor away. With it off, the critter still falls, once it figures out it's supposed to, as in the unmodded two-door drop.
+- **Start falling at once** makes a critter fall the moment a door takes its floor away. With it off, the critter still falls, once it figures out it's supposed to, as in a standard pez dropper.
 
 ## Installing
 

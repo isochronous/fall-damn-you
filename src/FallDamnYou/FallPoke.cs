@@ -14,8 +14,8 @@ namespace FallDamnYou
 	///
 	/// Two door changes qualify: the door below the cell opened to critters (the fix in Mod.cs made the
 	/// cell unwalkable), and the cell is itself a door that closed on the critter (the cell became
-	/// impassable; the game then lets the critter fall if what is under it is not solid, which is the
-	/// two-pneumatic-door drop players build on purpose).
+	/// impassable; the game then lets the critter fall if what is under it is not solid, which is a
+	/// standard pez dropper).
 	///
 	/// Cost: nothing unless a door changed state within the last second (digging and building dirty
 	/// cells all the time, and those batches are not even looked at). Within that window each dirty
