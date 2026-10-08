@@ -1,4 +1,4 @@
-# Critters Fall Through Doors
+# Fall, Damn You!
 
 An [Oxygen Not Included](https://www.klei.com/games/oxygen-not-included) mod that makes an open door under a critter count as open air.
 
@@ -15,21 +15,25 @@ For critters, a door they could walk through, meaning one that is open to critte
 - A closed or locked door still carries critters, and so does an automatic door that merely opened to let a duplicant through, because critters cannot pass those.
 - Duplicants and robots are not affected: their navigation uses a separate flag the mod leaves alone.
 
-The mod is one small patch on the game's floor validator; it does not touch doors, critters or the sim.
+## No waiting
+
+Whether a critter should fall is something its brain checks on the game's brain schedule, so even in the unmodded game a critter can stand on nothing for a moment, for example when a pneumatic door closes on it while it stands on another pneumatic door, the two-door drop players build on purpose. The mod listens for the navigation update that follows a door change and, when a critter is standing in a cell a door just took the floor from, either by opening under it or by closing on it, has that critter's brain run its check right away. The brain decides as it always does; the mod only stops it waiting its turn.
+
+The mod is one patch on the game's floor validator plus that listener; it does not touch doors, critters or the sim. It has been checked against Fast Track, which keeps both hooks intact.
 
 ## Installing
 
 As a local mod:
 
-1. Download `CrittersFallThroughDoors-<version>.zip` from the [latest release](https://github.com/isochronous/critters-fall-through-doors/releases/latest).
-2. Extract it into a new folder named `CrittersFallThroughDoors` inside the game's local mods folder, so that `mod.yaml` ends up directly inside it (create `local` if it does not exist):
-   - Windows: `Documents\Klei\OxygenNotIncluded\mods\local\CrittersFallThroughDoors`
-   - Linux: `~/.config/unity3d/Klei/Oxygen Not Included/mods/local/CrittersFallThroughDoors`
+1. Download `FallDamnYou-<version>.zip` from the [latest release](https://github.com/isochronous/fall-damn-you/releases/latest).
+2. Extract it into a new folder named `FallDamnYou` inside the game's local mods folder, so that `mod.yaml` ends up directly inside it (create `local` if it does not exist):
+   - Windows: `Documents\Klei\OxygenNotIncluded\mods\local\FallDamnYou`
+   - Linux: `~/.config/unity3d/Klei/Oxygen Not Included/mods/local/FallDamnYou`
 3. Enable it in the game's Mods menu and restart.
 
 ## Building
 
 ```
-git clone --recurse-submodules https://github.com/isochronous/critters-fall-through-doors.git
-dotnet build critters-fall-through-doors/src/CrittersFallThroughDoors -c Release
+git clone --recurse-submodules https://github.com/isochronous/fall-damn-you.git
+dotnet build fall-damn-you/src/FallDamnYou -c Release
 ```

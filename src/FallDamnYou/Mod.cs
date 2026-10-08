@@ -2,14 +2,14 @@ using HarmonyLib;
 using KMod;
 using UnityEngine;
 
-namespace CrittersFallThroughDoors
+namespace FallDamnYou
 {
-	public sealed class CrittersFallThroughDoorsMod : UserMod2
+	public sealed class FallDamnYouMod : UserMod2
 	{
 		public override void OnLoad(Harmony harmony)
 		{
 			base.OnLoad(harmony);
-			Debug.Log("[CrittersFallThroughDoors] Loaded version " + typeof(CrittersFallThroughDoorsMod).Assembly.GetName().Version);
+			Debug.Log("[FallDamnYou] Loaded version " + typeof(FallDamnYouMod).Assembly.GetName().Version);
 		}
 	}
 

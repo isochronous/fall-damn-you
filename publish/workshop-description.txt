@@ -8,8 +8,9 @@ In the unmodded game a critter standing on a door keeps standing on it when the 
 [*]Critters no longer path across open doors.
 [*]Closed and locked doors still carry critters, and so does an automatic door that merely opened to let a duplicant through, because critters cannot pass those.
 [*]Duplicants and robots are not affected.
+[*]No waiting: a critter whose floor a door just took away, by opening under it or by closing on it (the two-pneumatic-door drop), starts falling right away instead of standing on nothing until its brain's next turn.
 [/list]
 
-One small patch on the game's floor validator; doors, critters and the sim are not touched.
+One patch on the game's floor validator plus a listener on navigation updates; doors, critters and the sim are not touched. Checked against Fast Track.
 
-Source and issues: https://github.com/isochronous/critters-fall-through-doors
+Source and issues: https://github.com/isochronous/fall-damn-you
