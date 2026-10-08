@@ -35,6 +35,7 @@ namespace FallDamnYou
 		private const float DoorWindowSeconds = 1f;
 
 		private static float lastDoorChange = float.NegativeInfinity;
+		private static bool? openDoorsAreAir;
 		private static int cacheFrame = -1;
 		private static readonly Dictionary<int, List<Brain>> crittersByCell = new Dictionary<int, List<Brain>>();
 
@@ -65,7 +66,7 @@ namespace FallDamnYou
 				return;
 			foreach (int cell in cells)
 			{
-				if (!NearDoor(cell) || !CrittersAt(cell, out List<Brain> critters))
+				if (!DoorCell(cell) || !CrittersAt(cell, out List<Brain> critters))
 					continue;
 				foreach (Brain brain in critters)
 				{
@@ -79,14 +80,25 @@ namespace FallDamnYou
 		}
 
 		/// <summary>
-		/// A door in the cell or in one of its four orthogonal neighbours: floor and ceiling anchors, and walls
-		/// for crawlers. The door flag is set on every cell a door occupies, so each of the six cells around a
-		/// two-cell door, horizontal or vertical, sees it; diagonals are never navigation anchors.
+		/// A cell a door can take the footing from. The cell itself being a door cell is the pez dropper:
+		/// the door closes on the critter, which the game handles on its own. The cells around a door
+		/// only lose their footing when a mod makes open doors open air for critters, so they are
+		/// checked only when Sgt_Imalas's Critters Fall Through Open Doors is installed.
 		/// </summary>
-		private static bool NearDoor(int cell)
+		private static bool DoorCell(int cell)
 		{
 			if (Grid.HasDoor[cell])
 				return true;
+			return OpenDoorsAreAir && NextToDoor(cell);
+		}
+
+		/// <summary>
+		/// A door in one of the four orthogonal neighbours: floor and ceiling anchors, and walls for
+		/// crawlers. The door flag is set on every cell a door occupies, so each of the six cells around a
+		/// two-cell door, horizontal or vertical, sees it; diagonals are never navigation anchors.
+		/// </summary>
+		private static bool NextToDoor(int cell)
+		{
 			int other = Grid.CellBelow(cell);
 			if (Grid.IsValidCell(other) && Grid.HasDoor[other])
 				return true;
@@ -98,6 +110,29 @@ namespace FallDamnYou
 				return true;
 			other = Grid.CellRight(cell);
 			return Grid.IsValidCell(other) && Grid.HasDoor[other];
+		}
+
+		/// <summary>Whether Sgt_Imalas's Critters Fall Through Open Doors is loaded; decided once, after every mod has loaded.</summary>
+		private static bool OpenDoorsAreAir
+		{
+			get
+			{
+				if (openDoorsAreAir == null)
+				{
+					bool found = false;
+					foreach (System.Reflection.Assembly assembly in System.AppDomain.CurrentDomain.GetAssemblies())
+					{
+						if (assembly.GetName().Name.IndexOf("CrittersFallThroughOpenDoors", System.StringComparison.OrdinalIgnoreCase) >= 0)
+						{
+							found = true;
+							break;
+						}
+					}
+					openDoorsAreAir = found;
+					Debug.Log("[FallDamnYou] Critters Fall Through Open Doors " + (found ? "found: cells around doors are watched too" : "not found: only door cells are watched"));
+				}
+				return openDoorsAreAir.Value;
+			}
 		}
 
 		/// <summary>Critters (brains with a creature fall monitor) by cell, gathered once per frame.</summary>
