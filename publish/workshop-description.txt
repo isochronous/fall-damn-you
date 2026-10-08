@@ -2,7 +2,7 @@ A critter whose footing a door just took away falls at once, instead of standing
 
 [list]
 [*]Pez droppers fire the moment the door has closed on the critter.
-[*]With Sgt_Imalas's Critters Fall Through Open Doors installed, critters drop the moment a door opens under them (or, for climbers, above them).
+[*]With Sgt_Imalas's [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3816086407]Critters fall through open doors[/url] installed, critters drop the moment a door opens under them (or, for climbers, above them).
 [*]Duplicants and robots are not affected.
 [/list]
 
