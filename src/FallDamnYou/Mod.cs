@@ -1,5 +1,7 @@
 using HarmonyLib;
 using KMod;
+using PeterHan.PLib.Core;
+using PeterHan.PLib.Options;
 using UnityEngine;
 
 namespace FallDamnYou
@@ -9,6 +11,8 @@ namespace FallDamnYou
 		public override void OnLoad(Harmony harmony)
 		{
 			base.OnLoad(harmony);
+			PUtil.InitLibrary(false);
+			new POptions().RegisterOptions(this, typeof(Options));
 			Debug.Log("[FallDamnYou] Loaded version " + typeof(FallDamnYouMod).Assembly.GetName().Version);
 		}
 	}
@@ -25,13 +29,14 @@ namespace FallDamnYou
 	/// finds no floor there and no solid under its feet, and it falls through, the same way it would
 	/// if the tile had been dug out. A closed or locked door, or an automatic door that merely opened
 	/// for a duplicant, is still impassable to critters and stays floor.
+	/// Option "Open doors are open air to critters".
 	/// </summary>
 	[HarmonyPatch(typeof(GameNavGrids.FloorValidator), nameof(GameNavGrids.FloorValidator.IsWalkableCell))]
 	public static class FloorValidator_IsWalkableCell_Patch
 	{
 		public static void Postfix(int anchor_cell, bool is_dupe, ref bool __result)
 		{
-			if (!__result || is_dupe)
+			if (!__result || is_dupe || !Settings.OpenDoorsFall)
 				return;
 			if (!Grid.HasDoor[anchor_cell] || !Grid.FakeFloor[anchor_cell])
 				return;

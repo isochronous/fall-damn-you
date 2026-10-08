@@ -25,6 +25,7 @@ namespace FallDamnYou
 	/// The event fires on the main thread inside the game's own graph update, with and without Fast
 	/// Track (its path cache keeps that call), and updating a critter brain directly from the main
 	/// thread is what Fast Track itself does for non-duplicant brains it queues.
+	/// Option "Start falling at once".
 	/// </summary>
 	[HarmonyPatch(typeof(Pathfinding), nameof(Pathfinding.AddNavGrid))]
 	public static class FallPoke
@@ -53,7 +54,7 @@ namespace FallDamnYou
 
 		private static void OnGridUpdated(NavGrid grid, List<int> cells)
 		{
-			if (Time.realtimeSinceStartup - lastDoorChange > DoorWindowSeconds || KMonoBehaviour.isLoadingScene || Components.Brains.Count == 0)
+			if (Time.realtimeSinceStartup - lastDoorChange > DoorWindowSeconds || KMonoBehaviour.isLoadingScene || Components.Brains.Count == 0 || !Settings.PromptFall)
 				return;
 			foreach (int cell in cells)
 			{
