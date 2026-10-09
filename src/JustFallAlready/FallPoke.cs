@@ -3,7 +3,7 @@ using System.Diagnostics;
 using HarmonyLib;
 using UnityEngine;
 
-namespace FallYouBastard
+namespace JustFallAlready
 {
 	/// <summary>
 	/// Makes a critter fall the moment a door takes its footing away, instead of standing there until
@@ -124,7 +124,7 @@ namespace FallYouBastard
 							continue;
 						brain.UpdateBrain();
 						pokes++;
-						UnityEngine.Debug.Log("[FallYouBastard] " + brain.name + " at cell " + cell + " lost its " + navigator.CurrentNavType + " footing to a door; told it to fall");
+						UnityEngine.Debug.Log("[JustFallAlready] " + brain.name + " at cell " + cell + " lost its " + navigator.CurrentNavType + " footing to a door; told it to fall");
 					}
 				}
 				// Every grid gets its own batch for the same dirty cells, in registration order; disarm after the last one.
@@ -135,7 +135,7 @@ namespace FallYouBastard
 				armed.Remove(cell);
 			double ms = (Stopwatch.GetTimestamp() - start) * 1000.0 / Stopwatch.Frequency;
 			if (ms > SlowMilliseconds)
-				UnityEngine.Debug.Log("[FallYouBastard] " + grid.id + " check took " + ms.ToString("F1") + " ms: " + cells.Count + " cells in the batch, " + hits + " armed, " + crittersByCell.Count + " critter cells, " + pokes + " pokes");
+				UnityEngine.Debug.Log("[JustFallAlready] " + grid.id + " check took " + ms.ToString("F1") + " ms: " + cells.Count + " cells in the batch, " + hits + " armed, " + crittersByCell.Count + " critter cells, " + pokes + " pokes");
 		}
 
 		/// <summary>Whether Sgt_Imalas's Critters Fall Through Open Doors is loaded; decided once, after every mod has loaded.</summary>
@@ -155,7 +155,7 @@ namespace FallYouBastard
 						}
 					}
 					openDoorsAreAir = found;
-					UnityEngine.Debug.Log("[FallYouBastard] Critters Fall Through Open Doors " + (found ? "found: cells around doors are watched too" : "not found: only door cells are watched"));
+					UnityEngine.Debug.Log("[JustFallAlready] Critters Fall Through Open Doors " + (found ? "found: cells around doors are watched too" : "not found: only door cells are watched"));
 				}
 				return openDoorsAreAir.Value;
 			}

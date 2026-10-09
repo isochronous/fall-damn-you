@@ -3,8 +3,8 @@
   <Import Project="$(MSBuildThisFileDirectory)..\..\common\oni-mod.props" />
 
   <PropertyGroup>
-    <AssemblyName>FallYouBastard</AssemblyName>
-    <RootNamespace>FallYouBastard</RootNamespace>
+    <AssemblyName>JustFallAlready</AssemblyName>
+    <RootNamespace>JustFallAlready</RootNamespace>
     <Version>0.1.0</Version>
   </PropertyGroup>
 

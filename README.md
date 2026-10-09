@@ -1,4 +1,4 @@
-# Fall, You Bastard!
+# Just Fall Already!
 
 An [Oxygen Not Included](https://www.klei.com/games/oxygen-not-included) mod: a critter whose footing a door just took away falls at once, instead of standing there until it figures out it's supposed to.
 
@@ -14,15 +14,15 @@ The listener costs nothing unless a door finished a state change within the last
 
 As a local mod:
 
-1. Download `FallYouBastard-<version>.zip` from the [latest release](https://github.com/isochronous/fall-you-bastard/releases/latest).
-2. Extract it into a new folder named `FallYouBastard` inside the game's local mods folder, so that `mod.yaml` ends up directly inside it (create `local` if it does not exist):
-   - Windows: `Documents\Klei\OxygenNotIncluded\mods\local\FallYouBastard`
-   - Linux: `~/.config/unity3d/Klei/Oxygen Not Included/mods/local/FallYouBastard`
+1. Download `JustFallAlready-<version>.zip` from the [latest release](https://github.com/isochronous/just-fall-already/releases/latest).
+2. Extract it into a new folder named `JustFallAlready` inside the game's local mods folder, so that `mod.yaml` ends up directly inside it (create `local` if it does not exist):
+   - Windows: `Documents\Klei\OxygenNotIncluded\mods\local\JustFallAlready`
+   - Linux: `~/.config/unity3d/Klei/Oxygen Not Included/mods/local/JustFallAlready`
 3. Enable it in the game's Mods menu and restart.
 
 ## Building
 
 ```
-git clone --recurse-submodules https://github.com/isochronous/fall-you-bastard.git
-dotnet build fall-you-bastard/src/FallYouBastard -c Release
+git clone --recurse-submodules https://github.com/isochronous/just-fall-already.git
+dotnet build just-fall-already/src/JustFallAlready -c Release
 ```

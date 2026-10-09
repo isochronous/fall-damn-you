@@ -8,4 +8,4 @@ Critters fall without doing a Wyle E. Coyote impression first, even in laggy bas
 
 Does nothing unless a door just changed state, so there is no cost the rest of the time. Checked against Fast Track.
 
-Source and issues: https://github.com/isochronous/fall-you-bastard
+Source and issues: https://github.com/isochronous/just-fall-already
