@@ -1,9 +1,9 @@
-A critter whose footing a door just took away falls at once, instead of standing there until it realizes it should be falling.
+Critters fall without doing a Wyle E. Coyote impression first, even in laggy bases
 
 [list]
-[*]Pez droppers fire the moment the door has closed on the critter.
+[*]Critter droppers fire the moment the door has closed on the critter.
 [*]With Sgt_Imalas's [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3816086407]Critters fall through open doors[/url] installed, critters drop the moment a door opens under them (or, for climbers, above them).
-[*]Duplicants and robots are not affected.
+[*]Dupes, boops, remote workers, and robots are not affected.
 [/list]
 
 Does nothing unless a door just changed state, so there is no cost the rest of the time. Checked against Fast Track.
