@@ -1,0 +1,8 @@
+# Workshop tags, one per line: the category, then every DLC the mod supports.
+tweaks
+Base Game
+Spaced Out!
+The Frosty Planet Pack
+The Bionic Booster Pack
+The Prehistoric Planet Pack
+The Aquatic Planet Pack
